@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -46,6 +47,9 @@ public class RobotMap {
   public static int rightFollowerTalon2ID = 6;
   public static int leftFollowerTalon2ID = 3;
 
+  public static int elevatorMainID = 7;
+  public static int elevatorFallowerID = 8;
+
   public static TalonSRX leftDriveLead = new TalonSRX(leftMasterTalonID);
   public static TalonSRX rightDriveLead = new TalonSRX(rightMasterTalonID);
 
@@ -54,6 +58,7 @@ public class RobotMap {
 
   public static TalonSRX leftDriveFollowerTwo = new TalonSRX(leftFollowerTalon2ID);
   public static TalonSRX rightDriveFollowerTwo = new TalonSRX(rightFollowerTalon2ID);
+
   
   public static TalonSRX driveMotors[] = {
     RobotMap.leftDriveLead,
@@ -81,5 +86,6 @@ public class RobotMap {
   };
 
   public static DriveTrain drive = new DriveTrain();
+
   
 }
