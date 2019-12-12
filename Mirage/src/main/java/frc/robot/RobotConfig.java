@@ -33,11 +33,11 @@ public class RobotConfig {
         RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
 
         
-        RobotMap.rightDriveLead.setInverted(true);
+        RobotMap.rightDriveLead.setInverted(false);
         RobotMap.rightDriveFollowerOne.setInverted(InvertType.FollowMaster);
         RobotMap.rightDriveFollowerTwo.setInverted(InvertType.FollowMaster);
 
-    	RobotMap.leftDriveLead.setInverted(false);
+    	RobotMap.leftDriveLead.setInverted(true);
         RobotMap.leftDriveFollowerOne.setInverted(InvertType.FollowMaster);
         RobotMap.leftDriveFollowerTwo.setInverted(InvertType.FollowMaster);
         		
