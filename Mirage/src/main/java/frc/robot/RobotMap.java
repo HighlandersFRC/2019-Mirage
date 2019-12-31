@@ -37,13 +37,13 @@ public class RobotMap {
 	public static Relay visionRelay1 = new Relay(0);
 
   
-	public static int rightMasterTalonID = 4;
+	public static int rightMasterTalonID = 6;
   public static int leftMasterTalonID = 1;
 
   public static int rightFollowerTalon1ID = 5;
   public static int leftFollowerTalon1ID = 2;
 
-  public static int rightFollowerTalon2ID = 6;
+  public static int rightFollowerTalon2ID = 4;
   public static int leftFollowerTalon2ID = 3;
 
   public static TalonSRX leftDriveLead = new TalonSRX(leftMasterTalonID);

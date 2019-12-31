@@ -30,21 +30,21 @@ import frc.robot.tools.pathTools.Odometry;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private double deadZone = 0.01;
+  	private double deadZone = 0.0102;
 	private double turn =0;
 	private double throttel = 0;
 	private double ratio;
-  public static DriveEncoder leftMainDrive = new DriveEncoder(RobotMap.leftDriveLead,RobotMap.leftDriveLead.getSelectedSensorPosition(0));
+ 	 public static DriveEncoder leftMainDrive = new DriveEncoder(RobotMap.leftDriveLead,RobotMap.leftDriveLead.getSelectedSensorPosition(0));
 	public static DriveEncoder rightMainDrive = new DriveEncoder(RobotMap.rightDriveLead,RobotMap.rightDriveLead.getSelectedSensorPosition(0));
 	private double speed;
-  private double f = 0.332;
-	private double p = 0.165;
-  private double i = 0.000001;
-  private double d = 0;
+  	private double f = 0.153;
+	private double p = 0.25025;
+  	private double i = 0.000000;
+  	private double d = 0;
 	private int profile = 0;
 	private Odometry autoOdometry;
-  @Override
-  public void initDefaultCommand() {
+  	@Override
+  	public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
 	}
@@ -148,9 +148,9 @@ public class DriveTrain extends Subsystem {
 	public void setRightPercent(double percent){
 		RobotMap.rightDriveLead.set(ControlMode.PercentOutput, percent);
 	}
-  public void stopDriveTrainMotors(){
-    for(TalonSRX talon : RobotMap.driveMotorLeads){
-        talon.set(ControlMode.PercentOutput, 0);
-    }
-  }
+  	public void stopDriveTrainMotors(){
+    	for(TalonSRX talon : RobotMap.driveMotorLeads){
+        	talon.set(ControlMode.PercentOutput, 0);
+    	}
+  	}
 }

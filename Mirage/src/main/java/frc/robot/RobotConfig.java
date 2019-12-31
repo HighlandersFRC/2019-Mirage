@@ -40,7 +40,9 @@ public class RobotConfig {
     	RobotMap.leftDriveLead.setInverted(true);
         RobotMap.leftDriveFollowerOne.setInverted(InvertType.FollowMaster);
         RobotMap.leftDriveFollowerTwo.setInverted(InvertType.FollowMaster);
-        		
+
+        RobotMap.leftDriveLead.setSensorPhase(true);
+        RobotMap.rightDriveLead.setSensorPhase(true);
     	RobotMap.leftDriveLead.setSelectedSensorPosition(0, 0,0);
         RobotMap.rightDriveLead.setSelectedSensorPosition(0, 0, 0);
         
