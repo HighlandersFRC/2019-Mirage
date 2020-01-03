@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.tools.controlLoops.CubicInterpolationFollower;
 import frc.robot.tools.pathTools.Odometry;
 import frc.robot.tools.pathTools.PathList;
 
@@ -35,7 +34,6 @@ public class Robot extends TimedRobot {
   public static PathList pathlist = new PathList();
   private CommandSuites commandSuites;
   private RobotConfig robotConfig;
-  private CubicInterpolationFollower testCubic;
 
 
   /**
@@ -49,7 +47,6 @@ public class Robot extends TimedRobot {
     robotConfig.setStartingConfig();
     RobotMap.drive.initVelocityPIDs();
     m_oi = new OI();
-    testCubic = new CubicInterpolationFollower(0, 0, 12,13, 0, 2, 2, 0, 8, 0.5, false);
   }
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -98,9 +95,9 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     robotConfig.setAutoConfig();
-    RobotMap.drive.setLeftSpeed(-2);
-    RobotMap.drive.setRightSpeed(-2);
-    RobotMap.drive.initVelocityPIDs();
+    RobotMap.drive.startAutoOdometry(0, 0, 0);
+    commandSuites.startAutoCommands();
+
    // commandSuites.startAutoCommands();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -111,18 +108,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    RobotMap.drive.setLeftSpeed(-2);
-    RobotMap.drive.setRightSpeed(-2);
+
     Scheduler.getInstance().run();
   }
   @Override
   public void teleopInit() {
-    testCubic.start();
     commandSuites.startTeleopCommands();
     robotConfig.setTeleopConfig();
-    RobotMap.drive.setLeftSpeed(0);
-    RobotMap.drive.setRightSpeed(0);
     RobotMap.drive.startAutoOdometry(0, 0, 0);
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -136,9 +130,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("leftX", RobotMap.leftDriveLead.getSelectedSensorPosition());
+    SmartDashboard.putNumber("rightX", RobotMap.rightDriveLead.getSelectedSensorPosition());
+    SmartDashboard.putNumber("angle", RobotMap.drive.getDriveTrainHeading());
     SmartDashboard.putNumber("robotx",RobotMap.drive.getDriveTrainX());
     SmartDashboard.putNumber("robotY",RobotMap.drive.getDriveTrainY());
-
     Scheduler.getInstance().run();
   }
   /**

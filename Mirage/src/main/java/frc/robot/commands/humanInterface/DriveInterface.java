@@ -10,6 +10,7 @@ package frc.robot.commands.humanInterface;
 
 import frc.robot.RobotConfig;
 import frc.robot.RobotMap;
+import frc.robot.commands.autos.DriveForward;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,6 +18,7 @@ import frc.robot.ButtonMap;
 
 public class DriveInterface extends Command {
 	private boolean shouldFinish;
+	private DriveForward driveForward;
 	public DriveInterface() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -27,12 +29,19 @@ public class DriveInterface extends Command {
 	@Override
 	protected void initialize() {
 		RobotMap.drive.initVelocityPIDs();
+		driveForward = new DriveForward();
 	}
+
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		RobotMap.drive.arcadeDrive();
+		if(ButtonMap.runAuto()&&!driveForward.isRunning()){
+			driveForward.start();
+		}
+		else{
+			RobotMap.drive.arcadeDrive();
+		}
 	}
 	public void forceEnd(){
 		shouldFinish = true;

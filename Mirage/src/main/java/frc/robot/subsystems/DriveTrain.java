@@ -37,8 +37,8 @@ public class DriveTrain extends Subsystem {
  	 public static DriveEncoder leftMainDrive = new DriveEncoder(RobotMap.leftDriveLead,RobotMap.leftDriveLead.getSelectedSensorPosition(0));
 	public static DriveEncoder rightMainDrive = new DriveEncoder(RobotMap.rightDriveLead,RobotMap.rightDriveLead.getSelectedSensorPosition(0));
 	private double speed;
-  	private double f = 0.153;
-	private double p = 0.25025;
+	  private double f = 0.153;
+	private double p = 0.35025;
   	private double i = 0.000000;
   	private double d = 0;
 	private int profile = 0;
@@ -136,6 +136,8 @@ public class DriveTrain extends Subsystem {
 	}
 		
 	public void setLeftSpeed(double speed){
+		SmartDashboard.putNumber("LeftSpeed", leftMainDrive.getVelocity());
+		SmartDashboard.putNumber("RightSpeed", rightMainDrive.getVelocity());
 		RobotMap.leftDriveLead.set(ControlMode.Velocity, leftMainDrive.convertftpersToNativeUnitsper100ms(speed));
 	}
 	public void setRightSpeed(double speed){

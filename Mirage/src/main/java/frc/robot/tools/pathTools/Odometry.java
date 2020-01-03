@@ -36,7 +36,7 @@ public class Odometry extends Command {
   private double dt;
   private boolean isReversed;
   private boolean finish;
-  private Notifier notifier;
+  private double thetaOffset;
   public Odometry(boolean reversed) {
    
     isReversed = reversed;
@@ -72,8 +72,6 @@ public class Odometry extends Command {
     rightDriveEncoder.softReset();
     dt = 0.005;
     finish = false;
-    notifier = new Notifier(new OdometryRunable());
-    notifier.startPeriodic(dt);
   }
   public void endOdmetry(){
     finish = true;
@@ -112,52 +110,48 @@ public class Odometry extends Command {
     y = yValue;
   }
   public void setTheta(double thetaValue){
-    theta = thetaValue;
+    thetaOffset = thetaValue;
   }
   public void setReversed(boolean reversed){
     isReversed = reversed;
-  }
-  private class OdometryRunable implements Runnable{
-		public void run(){
-      if(shouldRun){
-        if(isReversed){
-          leftSideNext = leftDriveEncoder.getDistance();
-          rightSideNext = rightDriveEncoder.getDistance();
-          thetaNext = navx.currentReverseYaw();
-          leftDelta = -(leftSideNext-leftSide);
-          rightDelta = -(rightSideNext-rightSide);
-          centerDelta = (leftDelta+rightDelta)/2;
-          xNext = x-centerDelta*Math.cos(Math.toRadians(thetaNext));
-          yNext = y-centerDelta*Math.sin(Math.toRadians(thetaNext));
-          x = xNext;
-          y = yNext;
-          theta = thetaNext;
-          leftSide = leftSideNext;
-          rightSide = rightSideNext;
-        }
-        else{
-          leftSideNext = leftDriveEncoder.getDistance();
-          rightSideNext = rightDriveEncoder.getDistance();
-          thetaNext = navx.currentYaw();
-          leftDelta = (leftSideNext-leftSide);
-          rightDelta = (rightSideNext-rightSide);
-          centerDelta = (leftDelta+rightDelta)/2;
-          xNext = x+centerDelta*Math.cos(Math.toRadians(thetaNext));
-          yNext = y+centerDelta*Math.sin(Math.toRadians(thetaNext));
-          x = xNext;
-          y = yNext;
-          theta = thetaNext;
-          leftSide = leftSideNext;
-          rightSide = rightSideNext;
-        }
-        
-      }
-		}
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if(shouldRun){
+      if(isReversed){
+        leftSideNext = leftDriveEncoder.getDistance();
+        rightSideNext = rightDriveEncoder.getDistance();
+        thetaNext = navx.currentAngle()+thetaOffset;
+        leftDelta = (leftSideNext-leftSide);
+        rightDelta = (rightSideNext-rightSide);
+        centerDelta = (leftDelta+rightDelta)/2;
+        yNext = y-centerDelta*Math.sin(Math.toRadians(thetaNext));
+        xNext = x-centerDelta*Math.cos(Math.toRadians(thetaNext));
+        x = xNext;
+        y = yNext;
+        theta = thetaNext;
+        leftSide = leftSideNext;
+        rightSide = rightSideNext;
+      }
+      else{
+        leftSideNext = leftDriveEncoder.getDistance();
+        rightSideNext = rightDriveEncoder.getDistance();
+        thetaNext = navx.currentAngle()+thetaOffset;
+        leftDelta = (leftSideNext-leftSide);
+        rightDelta = (rightSideNext-rightSide);
+        centerDelta = (leftDelta+rightDelta)/2;
+        xNext = x+centerDelta*Math.cos(Math.toRadians(thetaNext));
+        yNext = y+centerDelta*Math.sin(Math.toRadians(thetaNext));
+        x = xNext;
+        y = yNext;
+        theta = thetaNext;
+        leftSide = leftSideNext;
+        rightSide = rightSideNext;
+      }
+      
+    }
    
   }
 

@@ -20,4 +20,7 @@ public class ButtonMap {
     public static double getRotation(){
         return oi.driverController.getRawAxis(4);
     }
+    public static boolean runAuto(){
+        return oi.driverController.getYButton();
+    }
 }
