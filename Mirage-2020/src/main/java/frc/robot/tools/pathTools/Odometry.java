@@ -7,13 +7,10 @@
 
 package frc.robot.tools.pathTools;
 
-import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotMap;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.sensors.Navx;
-import jaci.pathfinder.Pathfinder;
 
 public class Odometry extends Command {
   private double theta= 0;

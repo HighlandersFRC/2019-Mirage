@@ -8,10 +8,6 @@
 package frc.robot.tools.pathTools;
 
 import java.io.File;
-import java.io.IOException;
-
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Waypoint;
 
 public class PathList {
   private File testFile1 = new File("/home/lvuser/deploy/2HatchAuto1.pf1.csv");

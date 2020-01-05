@@ -57,7 +57,6 @@ public class PurePursuitController extends Command {
 		chosenPath = path;
 		lookAheadDistance = lookAhead;  
 		k = kValue;  
-		requires(RobotMap.drive);
 		useOutsideOdometry = false;
   	}
   	public PurePursuitController(PathSetup path, double lookAhead, double kValue, boolean outsideOdometry, boolean robotAbsoluteDirection){
@@ -70,7 +69,6 @@ public class PurePursuitController extends Command {
 		//if robotAbsoluteDirection is false, assuming a theta of 0, the robot moving forwards (on gravistar away from battery side) will lead to x increasing,
 		//this way the robot can run any path either forward or reversed, as long as robotAbsoluteDirection remains constant.
 		odometryDirection = robotAbsoluteDirection;
-		requires(RobotMap.drive);
  	}
 
 

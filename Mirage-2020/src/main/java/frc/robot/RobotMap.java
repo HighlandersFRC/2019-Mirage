@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -20,7 +19,9 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
+import frc.robot.sensors.Navx;
 import frc.robot.subsystems.DriveTrain;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -31,6 +32,8 @@ import frc.robot.subsystems.DriveTrain;
 public class RobotMap {
 
   public static AHRS navx = new AHRS(Port.kMXP);
+
+  public static Navx mainNavx = new Navx(navx);
   
   public static PowerDistributionPanel pdp = new PowerDistributionPanel();
   

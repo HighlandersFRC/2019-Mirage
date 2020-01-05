@@ -7,24 +7,14 @@
 
 package frc.robot.tools.controlLoops;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.OI;
-import frc.robot.Robot;
-import frc.robot.RobotConfig;
 import frc.robot.RobotMap;
 import frc.robot.RobotStats;
-import frc.robot.sensors.DriveEncoder;
-import frc.robot.sensors.Navx;
 
 public class CascadingPIDTurn extends Command {
   private PID turnPID;
-  private Navx navx;
   private double desiredAngle;
-  private DoubleSolenoid.Value value;
   private double p;
   private double i;
   private double d;
@@ -34,7 +24,6 @@ public class CascadingPIDTurn extends Command {
     p = kp;
     i = ki;
     d = kd;
-    requires(RobotMap.drive);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -43,7 +32,6 @@ public class CascadingPIDTurn extends Command {
   @Override
   protected void initialize() {
     turnPID =  new PID(p,i,d);
-    navx = new Navx(RobotMap.navx);
     turnPID.setMaxOutput(RobotStats.robotMaxVelocity);
     turnPID.setMinOutput(-RobotStats.robotMaxVelocity);
     turnPID.setSetPoint(desiredAngle);
