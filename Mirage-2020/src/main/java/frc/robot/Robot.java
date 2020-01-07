@@ -16,6 +16,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.tools.pathTools.PathList;
 
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -29,7 +34,11 @@ public class Robot extends TimedRobot {
   private double shooterPower;
   private CommandSuites commandSuites;
   private RobotConfig robotConfig;
-
+  private double kf;
+  private double kp;
+  private double ki;
+  private double kd;
+  private CANPIDController vpidController = new CANPIDController(RobotMap.shooterMotorOne);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -102,6 +111,11 @@ public class Robot extends TimedRobot {
     commandSuites.startTeleopCommands();
     shooterPower = 0;
     robotConfig.setTeleopConfig();
+
+    vpidController.setFF(0.00017);
+    vpidController.setOutputRange(0, 1);  
+    RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -113,22 +127,25 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
    
     if(ButtonMap.shootyUp()){
-      shooterPower = shooterPower -0.02;
+      shooterPower = shooterPower +100;
     }
     else if(ButtonMap.shootyDown()){
-      shooterPower = shooterPower+0.02;
+      shooterPower = shooterPower-100;
     }
     else if(ButtonMap.shootyStop()){
       shooterPower = 0;
     }
-    if(shooterPower <-1){
-      shooterPower = -1;
+    if(shooterPower >4500){
+      shooterPower = 4500;
     }
-    if(shooterPower >0){
+    if(shooterPower <0){
       shooterPower = 0;
     }
-    RobotMap.shooterMotorOne.set(shooterPower);
-    RobotMap.shooterMotorTwo.set(shooterPower);
+    
+    SmartDashboard.putNumber("velocity",RobotMap.shooterMotorOne.getEncoder().getVelocity());
+    SmartDashboard.putNumber("desiredVelocity",shooterPower);
+
+    vpidController.setReference(shooterPower, ControlType.kVelocity);
     Scheduler.getInstance().run();
   }
   /**
