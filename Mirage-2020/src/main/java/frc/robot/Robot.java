@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     commandSuites = new CommandSuites();
     robotConfig = new RobotConfig();
-    //robotConfig.setStartingConfig();
+    robotConfig.setStartingConfig();
     RobotMap.drive.initVelocityPIDs();
     m_oi = new OI();
   }
@@ -81,19 +81,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
-    //robotConfig.setAutoConfig();
     RobotMap.drive.startAutoOdometry(0, 0, 0);
     commandSuites.startAutoCommands();
 
-   // commandSuites.startAutoCommands();
+    commandSuites.startAutoCommands();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
@@ -110,12 +101,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     commandSuites.startTeleopCommands();
     shooterPower = 0;
-    //robotConfig.setTeleopConfig();
-
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    robotConfig.setTeleopConfig();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -141,8 +127,8 @@ public class Robot extends TimedRobot {
     if(shooterPower >0){
       shooterPower = 0;
     }
-    RobotMap.leftDriveLead.set(ControlMode.PercentOutput, shooterPower);
-    RobotMap.leftDriveFollowerOne.set(ControlMode.PercentOutput, shooterPower);
+    RobotMap.shooterMotorOne.set(shooterPower);
+    RobotMap.shooterMotorTwo.set(shooterPower);
     Scheduler.getInstance().run();
   }
   /**

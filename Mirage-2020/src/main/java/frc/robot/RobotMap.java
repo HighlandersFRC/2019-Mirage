@@ -24,6 +24,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.tools.pathTools.PathList;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -60,6 +62,9 @@ public class RobotMap {
   public static TalonSRX leftDriveFollowerTwo = new TalonSRX(leftFollowerTalon2ID);
   public static TalonSRX rightDriveFollowerTwo = new TalonSRX(rightFollowerTalon2ID);
   
+  public static CANSparkMax shooterMotorOne = new CANSparkMax(7, MotorType.kBrushless);
+  public static CANSparkMax shooterMotorTwo = new CANSparkMax(8, MotorType.kBrushless);
+
   public static PathList pathlist = new PathList();
 
   public static TalonSRX driveMotors[] = {
