@@ -143,7 +143,7 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     if(RobotState.isOperatorControl()){
-      arcadeDrive();
+     // arcadeDrive();
     }
     // This method will be called once per scheduler run
   }

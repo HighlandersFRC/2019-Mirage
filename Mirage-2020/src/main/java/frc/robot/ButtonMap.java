@@ -23,4 +23,16 @@ public class ButtonMap {
     public static boolean runAuto(){
         return oi.driverController.getYButton();
     }
+    public static double shootyAxis(){
+        return -oi.operatorController.getRawAxis(3);
+    }
+    public static boolean shootyUp(){
+        return oi.operatorController.getYButton();
+    }
+    public static boolean shootyDown(){
+        return oi.operatorController.getAButton();
+    }
+    public static boolean shootyStop(){
+        return oi.operatorController.getXButton();
+    }
 }

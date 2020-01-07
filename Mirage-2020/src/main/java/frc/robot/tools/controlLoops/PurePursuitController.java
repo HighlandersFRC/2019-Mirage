@@ -8,7 +8,8 @@
 package frc.robot.tools.controlLoops;
 
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.RobotStats;
@@ -18,7 +19,7 @@ import frc.robot.tools.math.Point;
 import frc.robot.tools.math.Vector;
 import jaci.pathfinder.Pathfinder;
 
-public class PurePursuitController extends Command {
+public class PurePursuitController extends CommandBase {
 	private PathSetup chosenPath;
 	private Odometry odometry;
 	private int closestSegment;
@@ -69,12 +70,13 @@ public class PurePursuitController extends Command {
 		//if robotAbsoluteDirection is false, assuming a theta of 0, the robot moving forwards (on gravistar away from battery side) will lead to x increasing,
 		//this way the robot can run any path either forward or reversed, as long as robotAbsoluteDirection remains constant.
 		odometryDirection = robotAbsoluteDirection;
+		addRequirements(RobotMap.drive);
  	}
 
 
   	// Called just before this Command runs the first time
   	@Override
-  	protected void initialize() {
+  	public void initialize() {
 		shouldEnd = false;
 		odometry = new Odometry(odometryDirection);
 		RobotMap.drive.setOdometryReversed(odometryDirection);
@@ -279,14 +281,14 @@ public class PurePursuitController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {
+	public void execute() {
 	}
 	public void forceFinish(){
 		shouldEnd = true;
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		if(chosenPath.getMainPath().length()-closestSegment<=2){
 			return true;
 		} 
@@ -297,19 +299,12 @@ public class PurePursuitController extends Command {
 	}
 	// Called once after isFinished returns true
 	@Override
-	protected void end() {
+	public void end(boolean interrupted) {
 		pathNotifier.stop();
 		shouldRunAlgorithm = false;
 		odometry.endOdmetry();
 		RobotMap.drive.setLeftSpeed(0);
 		RobotMap.drive.setRightSpeed(0);
 		odometry.cancel();
-	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
-		this.end();
 	}
 }

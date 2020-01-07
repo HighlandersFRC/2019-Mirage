@@ -8,11 +8,12 @@
 package frc.robot.tools.controlLoops;
 
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotMap;
 import frc.robot.RobotStats;
 
-public class CascadingPIDTurn extends Command {
+public class CascadingPIDTurn extends CommandBase {
   private PID turnPID;
   private double desiredAngle;
   private double p;
@@ -24,13 +25,12 @@ public class CascadingPIDTurn extends Command {
     p = kp;
     i = ki;
     d = kd;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    addRequirements(RobotMap.drive);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     turnPID =  new PID(p,i,d);
     turnPID.setMaxOutput(RobotStats.robotMaxVelocity);
     turnPID.setMinOutput(-RobotStats.robotMaxVelocity);
@@ -42,7 +42,7 @@ public class CascadingPIDTurn extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     turnPID.updatePID(RobotMap.drive.getDriveTrainHeading());
     RobotMap.drive.setLeftSpeed(-turnPID.getResult());
     RobotMap.drive.setRightSpeed(turnPID.getResult());
@@ -52,7 +52,7 @@ public class CascadingPIDTurn extends Command {
   }
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     if(Math.abs(RobotMap.drive.getDriveTrainHeading()-desiredAngle)<1.5){
       return true;
     }
@@ -61,15 +61,9 @@ public class CascadingPIDTurn extends Command {
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
     RobotMap.drive.stopDriveTrainMotors();
     System.out.println("done");
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    this.end();
-  }
 }

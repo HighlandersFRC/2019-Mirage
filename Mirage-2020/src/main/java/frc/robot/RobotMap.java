@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.sensors.Navx;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.tools.pathTools.PathList;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
@@ -58,6 +60,8 @@ public class RobotMap {
   public static TalonSRX leftDriveFollowerTwo = new TalonSRX(leftFollowerTalon2ID);
   public static TalonSRX rightDriveFollowerTwo = new TalonSRX(rightFollowerTalon2ID);
   
+  public static PathList pathlist = new PathList();
+
   public static TalonSRX driveMotors[] = {
     RobotMap.leftDriveLead,
     RobotMap.rightDriveLead,

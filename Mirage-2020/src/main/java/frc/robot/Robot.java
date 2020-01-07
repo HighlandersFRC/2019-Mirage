@@ -8,17 +8,12 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Relay.Value;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.tools.pathTools.Odometry;
 import frc.robot.tools.pathTools.PathList;
 
 /**
@@ -31,7 +26,7 @@ import frc.robot.tools.pathTools.PathList;
 public class Robot extends TimedRobot {
   public static OI m_oi;
   Command m_autonomousCommand;
-  public static PathList pathlist = new PathList();
+  private double shooterPower;
   private CommandSuites commandSuites;
   private RobotConfig robotConfig;
 
@@ -44,7 +39,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     commandSuites = new CommandSuites();
     robotConfig = new RobotConfig();
-    robotConfig.setStartingConfig();
+    //robotConfig.setStartingConfig();
     RobotMap.drive.initVelocityPIDs();
     m_oi = new OI();
   }
@@ -94,7 +89,7 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
-    robotConfig.setAutoConfig();
+    //robotConfig.setAutoConfig();
     RobotMap.drive.startAutoOdometry(0, 0, 0);
     commandSuites.startAutoCommands();
 
@@ -114,8 +109,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     commandSuites.startTeleopCommands();
-    robotConfig.setTeleopConfig();
-    RobotMap.drive.startAutoOdometry(0, 0, 0);
+    shooterPower = 0;
+    //robotConfig.setTeleopConfig();
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -130,11 +125,24 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("leftX", RobotMap.leftDriveLead.getSelectedSensorPosition());
-    SmartDashboard.putNumber("rightX", RobotMap.rightDriveLead.getSelectedSensorPosition());
-    SmartDashboard.putNumber("angle", RobotMap.drive.getDriveTrainHeading());
-    SmartDashboard.putNumber("robotx",RobotMap.drive.getDriveTrainX());
-    SmartDashboard.putNumber("robotY",RobotMap.drive.getDriveTrainY());
+   
+    if(ButtonMap.shootyUp()){
+      shooterPower = shooterPower -0.02;
+    }
+    else if(ButtonMap.shootyDown()){
+      shooterPower = shooterPower+0.02;
+    }
+    else if(ButtonMap.shootyStop()){
+      shooterPower = 0;
+    }
+    if(shooterPower <-1){
+      shooterPower = -1;
+    }
+    if(shooterPower >0){
+      shooterPower = 0;
+    }
+    RobotMap.leftDriveLead.set(ControlMode.PercentOutput, shooterPower);
+    RobotMap.leftDriveFollowerOne.set(ControlMode.PercentOutput, shooterPower);
     Scheduler.getInstance().run();
   }
   /**

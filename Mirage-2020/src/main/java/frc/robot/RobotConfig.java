@@ -29,8 +29,8 @@ public class RobotConfig {
         RobotMap.rightDriveFollowerOne.set(ControlMode.Follower, RobotMap.rightMasterTalonID);
         RobotMap.rightDriveFollowerTwo.set(ControlMode.Follower, RobotMap.rightMasterTalonID);
 
-        RobotMap.leftDriveFollowerOne.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
-        RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
+        //RobotMap.leftDriveFollowerOne.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
+        //RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
 
         
         RobotMap.rightDriveLead.setInverted(false);
