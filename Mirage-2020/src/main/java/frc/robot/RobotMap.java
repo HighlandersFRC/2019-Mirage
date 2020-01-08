@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.sensors.Navx;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 import frc.robot.tools.pathTools.PathList;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -49,6 +50,10 @@ public class RobotMap {
 
   public static int rightFollowerTalon1ID = 5;
   public static int leftFollowerTalon1ID = 2;
+
+  public static int shooterMain = 7;
+  public static int shooterSlave = 8;
+
 
   public static int rightFollowerTalon2ID = 4;
   public static int leftFollowerTalon2ID = 3;
@@ -93,5 +98,6 @@ public class RobotMap {
   };
 
   public static DriveTrain drive = new DriveTrain();
+  public static Shooter shooter = new Shooter();
   
 }

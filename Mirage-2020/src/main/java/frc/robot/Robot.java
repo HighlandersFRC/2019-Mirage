@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Shooter;
 import frc.robot.tools.pathTools.PathList;
 
 import com.revrobotics.CANPIDController;
@@ -31,14 +32,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Robot extends TimedRobot {
   public static OI m_oi;
   Command m_autonomousCommand;
-  private double shooterPower;
   private CommandSuites commandSuites;
   private RobotConfig robotConfig;
-  private double kf;
-  private double kp;
-  private double ki;
-  private double kd;
-  private CANPIDController vpidController = new CANPIDController(RobotMap.shooterMotorOne);
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -50,6 +46,10 @@ public class Robot extends TimedRobot {
     robotConfig = new RobotConfig();
     robotConfig.setStartingConfig();
     RobotMap.drive.initVelocityPIDs();
+    RobotMap.shooter.initShooterPID();
+    
+    
+    
     m_oi = new OI();
   }
   /**
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    RobotMap.shooter.periodic();
   }
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -109,12 +110,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     commandSuites.startTeleopCommands();
-    shooterPower = 0;
     robotConfig.setTeleopConfig();
-
-    vpidController.setFF(0.00017);
-    vpidController.setOutputRange(0, 1);  
-    RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
@@ -126,26 +122,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
    
-    if(ButtonMap.shootyUp()){
-      shooterPower = shooterPower +100;
-    }
-    else if(ButtonMap.shootyDown()){
-      shooterPower = shooterPower-100;
-    }
-    else if(ButtonMap.shootyStop()){
-      shooterPower = 0;
-    }
-    if(shooterPower >4500){
-      shooterPower = 4500;
-    }
-    if(shooterPower <0){
-      shooterPower = 0;
-    }
-    
-    SmartDashboard.putNumber("velocity",RobotMap.shooterMotorOne.getEncoder().getVelocity());
-    SmartDashboard.putNumber("desiredVelocity",shooterPower);
-
-    vpidController.setReference(shooterPower, ControlType.kVelocity);
     Scheduler.getInstance().run();
   }
   /**
