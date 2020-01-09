@@ -34,13 +34,13 @@ public class Shooter extends SubsystemBase {
 
   }
   public void initShooterPID(){
-  shooterPower = 0;
-  vpidController.setFF(kf);
-  vpidController.setP(kp);
-  vpidController.setI(ki);
-  vpidController.setD(kd);
-  vpidController.setOutputRange(0, 1);  
-  RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
+    shooterPower = 0;
+    vpidController.setFF(kf);
+    vpidController.setP(kp);
+    vpidController.setI(ki);
+    vpidController.setD(kd);
+    vpidController.setOutputRange(0, 1);  
+    RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
   }
 
   @Override

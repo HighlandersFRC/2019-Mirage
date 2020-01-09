@@ -23,9 +23,6 @@ public class ButtonMap {
     public static boolean runAuto(){
         return oi.driverController.getYButton();
     }
-    public static double shootyAxis(){
-        return -oi.operatorController.getRawAxis(3);
-    }
     public static boolean shootyUp(){
         return oi.operatorController.getYButton();
     }
@@ -34,5 +31,11 @@ public class ButtonMap {
     }
     public static boolean shootyStop(){
         return oi.operatorController.getXButton();
+    }
+    public static double moveClimberArmUp(){
+        return oi.operatorController.getRawAxis(1)*-0.8;
+    }
+    public static boolean enableClimberFunctions(){
+        return oi.operatorController.getStartButton();
     }
 }

@@ -31,7 +31,7 @@ public class RobotConfig {
 
         //RobotMap.leftDriveFollowerOne.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
         //RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
-
+        RobotMap.climberMaster.setNeutralMode(NeutralMode.Brake);
         
         RobotMap.rightDriveLead.setInverted(false);
         RobotMap.rightDriveFollowerOne.setInverted(InvertType.FollowMaster);

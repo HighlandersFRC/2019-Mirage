@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.sensors.Navx;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.tools.pathTools.PathList;
@@ -39,9 +40,7 @@ public class RobotMap {
   public static AHRS navx = new AHRS(Port.kMXP);
 
   public static Navx mainNavx = new Navx(navx);
-  
-  public static PowerDistributionPanel pdp = new PowerDistributionPanel();
-  
+    
 	public static Relay visionRelay1 = new Relay(0);
 
   
@@ -51,12 +50,15 @@ public class RobotMap {
   public static int rightFollowerTalon1ID = 5;
   public static int leftFollowerTalon1ID = 2;
 
-  public static int shooterMain = 7;
-  public static int shooterSlave = 8;
-
-
   public static int rightFollowerTalon2ID = 4;
   public static int leftFollowerTalon2ID = 3;
+
+  public static int shooterMasterID = 7;
+  public static int shooterFollowerID = 8;
+
+  public static int climberMasterID = 9;
+
+
 
   public static TalonSRX leftDriveLead = new TalonSRX(leftMasterTalonID);
   public static TalonSRX rightDriveLead = new TalonSRX(rightMasterTalonID);
@@ -67,8 +69,10 @@ public class RobotMap {
   public static TalonSRX leftDriveFollowerTwo = new TalonSRX(leftFollowerTalon2ID);
   public static TalonSRX rightDriveFollowerTwo = new TalonSRX(rightFollowerTalon2ID);
   
-  public static CANSparkMax shooterMotorOne = new CANSparkMax(7, MotorType.kBrushless);
-  public static CANSparkMax shooterMotorTwo = new CANSparkMax(8, MotorType.kBrushless);
+  public static CANSparkMax shooterMotorOne = new CANSparkMax(shooterMasterID, MotorType.kBrushless);
+  public static CANSparkMax shooterMotorTwo = new CANSparkMax(shooterFollowerID, MotorType.kBrushless);
+
+  public static TalonSRX climberMaster = new TalonSRX(climberMasterID);
 
   public static PathList pathlist = new PathList();
 
@@ -99,5 +103,6 @@ public class RobotMap {
 
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter();
+  public static Climber climber = new Climber();
   
 }
