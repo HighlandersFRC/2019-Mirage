@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
+import frc.robot.sensors.LidarLite;
 import frc.robot.sensors.Navx;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -43,7 +45,9 @@ public class RobotMap {
     
 	public static Relay visionRelay1 = new Relay(0);
 
-  
+  public static Counter lidarCounter = new Counter(0);
+  public static LidarLite lidar1 = new LidarLite(lidarCounter);
+
 	public static int rightMasterTalonID = 6;
   public static int leftMasterTalonID = 1;
 

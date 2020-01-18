@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    RobotMap.lidar1.getDistance();
     RobotMap.shooter.periodic();
     //RobotMap.drive.periodic();
     RobotMap.climber.periodic();
