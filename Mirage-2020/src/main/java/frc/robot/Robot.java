@@ -9,18 +9,17 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.sensors.VisionCamera;
 import frc.robot.subsystems.Shooter;
 import frc.robot.tools.pathTools.PathList;
-
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +33,8 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   private CommandSuites commandSuites;
   private RobotConfig robotConfig;
+  private SerialPort camera1;
+  public static VisionCamera visionCamera;
 
 
   /**
@@ -47,7 +48,13 @@ public class Robot extends TimedRobot {
     robotConfig.setStartingConfig();
     RobotMap.drive.initVelocityPIDs();
     RobotMap.shooter.initShooterPID();
-    
+    RobotMap.drive.initAlignmentPID();
+    RobotMap.visionRelay1.set(Value.kOn);
+    try {
+      camera1 = new SerialPort(115200, Port.kUSB);
+      visionCamera = new VisionCamera(camera1);
+    } catch (Exception e) {
+    }
     
     
     m_oi = new OI();
@@ -62,10 +69,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    RobotMap.lidar1.getDistance();
+    try{
+      SmartDashboard.putNumber("lidarDistft", RobotMap.lidarLite.getDistance());
+      visionCamera.updateVision();
+      SmartDashboard.putString("camstring", visionCamera.getString());
+    }
+    catch(Exception e){
+
+    }
+    
     RobotMap.shooter.periodic();
-    //RobotMap.drive.periodic();
-    RobotMap.climber.periodic();
+    RobotMap.drive.periodic();
   }
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -93,9 +107,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    robotConfig.setAutoConfig();
-    RobotMap.drive.startAutoOdometry(0, 0, 0);
     commandSuites.startAutoCommands();
+    robotConfig.setStartingConfig();
+    robotConfig.setAutoConfig();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -112,6 +126,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     commandSuites.startTeleopCommands();
+    robotConfig.setStartingConfig();
     robotConfig.setTeleopConfig();
 
     if (m_autonomousCommand != null) {

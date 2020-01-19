@@ -24,13 +24,19 @@ public class ButtonMap {
         return oi.driverController.getYButton();
     }
     public static boolean shootyUp(){
-        return oi.operatorController.getYButton();
+        return oi.driverController.getYButtonPressed();
     }
     public static boolean shootyDown(){
-        return oi.operatorController.getAButton();
+        return oi.driverController.getAButtonPressed();
     }
-    public static boolean shootyStop(){
-        return oi.operatorController.getXButton();
+    public static boolean adjustTargetTrackingLeft(){
+        return oi.driverController.getXButtonPressed();
+    }
+    public static boolean adjustTargetTrackingRight(){
+        return oi.driverController.getBButtonPressed();
+    }
+    public static boolean trackTarget(){
+        return oi.driverController.getBumper(Hand.kRight);
     }
     public static double moveClimberArmUp(){
         return oi.operatorController.getRawAxis(1)*-0.8;

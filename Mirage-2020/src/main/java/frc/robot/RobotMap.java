@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
 import frc.robot.sensors.LidarLite;
 import frc.robot.sensors.Navx;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.tools.pathTools.PathList;
@@ -46,8 +45,7 @@ public class RobotMap {
 	public static Relay visionRelay1 = new Relay(0);
 
   public static Counter lidarCounter = new Counter(0);
-  public static LidarLite lidar1 = new LidarLite(lidarCounter);
-
+  public static LidarLite lidarLite = new LidarLite(lidarCounter);
 	public static int rightMasterTalonID = 6;
   public static int leftMasterTalonID = 1;
 
@@ -60,7 +58,6 @@ public class RobotMap {
   public static int shooterMasterID = 7;
   public static int shooterFollowerID = 8;
 
-  public static int climberMasterID = 9;
 
 
 
@@ -76,7 +73,6 @@ public class RobotMap {
   public static CANSparkMax shooterMotorOne = new CANSparkMax(shooterMasterID, MotorType.kBrushless);
   public static CANSparkMax shooterMotorTwo = new CANSparkMax(shooterFollowerID, MotorType.kBrushless);
 
-  public static TalonSRX climberMaster = new TalonSRX(climberMasterID);
 
   public static PathList pathlist = new PathList();
 
@@ -107,6 +103,5 @@ public class RobotMap {
 
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter();
-  public static Climber climber = new Climber();
   
 }

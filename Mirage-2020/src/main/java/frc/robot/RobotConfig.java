@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 /**
  * Add your docs here.
@@ -29,9 +30,8 @@ public class RobotConfig {
         RobotMap.rightDriveFollowerOne.set(ControlMode.Follower, RobotMap.rightMasterTalonID);
         RobotMap.rightDriveFollowerTwo.set(ControlMode.Follower, RobotMap.rightMasterTalonID);
 
-        //RobotMap.leftDriveFollowerOne.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
-        //RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
-        RobotMap.climberMaster.setNeutralMode(NeutralMode.Brake);
+        RobotMap.leftDriveFollowerOne.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
+        RobotMap.leftDriveFollowerTwo.set(ControlMode.Follower, RobotMap.leftMasterTalonID);
         
         RobotMap.rightDriveLead.setInverted(false);
         RobotMap.rightDriveFollowerOne.setInverted(InvertType.FollowMaster);
@@ -45,7 +45,25 @@ public class RobotConfig {
         RobotMap.rightDriveLead.setSensorPhase(true);
     	RobotMap.leftDriveLead.setSelectedSensorPosition(0, 0,0);
         RobotMap.rightDriveLead.setSelectedSensorPosition(0, 0, 0);
+
+        RobotMap.leftDriveLead.configVoltageCompSaturation(11.5);
+        RobotMap.leftDriveFollowerOne.configVoltageCompSaturation(11.5);
+        RobotMap.leftDriveFollowerTwo.configVoltageCompSaturation(11.5);
         
+        RobotMap.rightDriveLead.configVoltageCompSaturation(11.5);
+        RobotMap.rightDriveFollowerOne.configVoltageCompSaturation(11.5);
+        RobotMap.rightDriveFollowerTwo.configVoltageCompSaturation(11.5);
+
+        RobotMap.shooterMotorOne.enableVoltageCompensation(11.3);
+        RobotMap.shooterMotorOne.setIdleMode(IdleMode.kCoast);
+        
+        RobotMap.shooterMotorTwo.enableVoltageCompensation(11.3);
+        RobotMap.shooterMotorTwo.setIdleMode(IdleMode.kCoast);
+
+        RobotMap.shooterMotorOne.setInverted(true); 
+        RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
+        System.out.println(RobotMap.shooterMotorTwo.setIdleMode(IdleMode.kCoast));
+
     	for(TalonSRX talon:RobotMap.driveMotors) {
     		talon.configContinuousCurrentLimit(RobotStats.driveMotorContinuousCurrentHighGear);
     		talon.configPeakCurrentLimit(RobotStats.driveMotorPeakCurrentHighGear);
