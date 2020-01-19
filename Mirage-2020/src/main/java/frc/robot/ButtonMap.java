@@ -39,7 +39,7 @@ public class ButtonMap {
         return oi.driverController.getBumper(Hand.kRight);
     }
     public static double moveClimberArmUp(){
-        return oi.operatorController.getRawAxis(1)*-0.8;
+        return oi.operatorController.getRawAxis(1)*-1.0;
     }
     public static boolean enableClimberFunctions(){
         return oi.operatorController.getStartButton();
