@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     RobotMap.drive.initVelocityPIDs();
     RobotMap.shooter.initShooterPID();
     RobotMap.drive.initAlignmentPID();
-    RobotMap.visionRelay1.set(Value.kOn);
+    RobotMap.visionRelay1.set(Value.kReverse);
     try {
       camera1 = new SerialPort(115200, Port.kUSB);
       visionCamera = new VisionCamera(camera1);
@@ -108,7 +108,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     commandSuites.startAutoCommands();
-    robotConfig.setStartingConfig();
     robotConfig.setAutoConfig();
 
     if (m_autonomousCommand != null) {
@@ -126,7 +125,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     commandSuites.startTeleopCommands();
-    robotConfig.setStartingConfig();
     robotConfig.setTeleopConfig();
 
     if (m_autonomousCommand != null) {
@@ -138,7 +136,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-   
+
     Scheduler.getInstance().run();
   }
   /**

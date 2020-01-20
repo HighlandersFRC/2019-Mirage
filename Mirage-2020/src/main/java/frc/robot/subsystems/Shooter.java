@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase {
 
   }
   public double calculateNeededRPM(double dist){
-    return -4.1375*Math.pow(dist, 3)+143.3*Math.pow(dist, 2)-1536.4*(dist)+9590.8;
+    return 0.2089*Math.pow(dist, 4)-11.907*Math.pow(dist, 3)+246.94*Math.pow(dist,2)-2122.3*dist+10774;
   }
 
   @Override
@@ -55,7 +55,7 @@ public class Shooter extends SubsystemBase {
       } 
       else{
         shooterPower = 0;
-      } 
+      }
       if(shooterPower >6000){
         shooterPower = 6000;
       }

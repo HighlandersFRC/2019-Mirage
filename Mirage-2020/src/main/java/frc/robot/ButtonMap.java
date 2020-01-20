@@ -23,17 +23,20 @@ public class ButtonMap {
     public static boolean runAuto(){
         return oi.driverController.getYButton();
     }
-    public static boolean shootyUp(){
-        return oi.driverController.getYButtonPressed();
-    }
-    public static boolean shootyDown(){
-        return oi.driverController.getAButtonPressed();
+    public static double getShooterAxis(){
+        return oi.driverController.getRawAxis(3);
     }
     public static boolean adjustTargetTrackingLeft(){
         return oi.driverController.getXButtonPressed();
     }
     public static boolean adjustTargetTrackingRight(){
         return oi.driverController.getBButtonPressed();
+    }
+    public static boolean shooterPowerUp(){
+        return oi.driverController.getYButtonPressed();
+    }
+    public static boolean shooterPowerDown(){
+        return oi.driverController.getAButtonPressed();
     }
     public static boolean trackTarget(){
         return oi.driverController.getBumper(Hand.kRight);

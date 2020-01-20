@@ -54,15 +54,11 @@ public class RobotConfig {
         RobotMap.rightDriveFollowerOne.configVoltageCompSaturation(11.5);
         RobotMap.rightDriveFollowerTwo.configVoltageCompSaturation(11.5);
 
-        RobotMap.shooterMotorOne.enableVoltageCompensation(11.3);
         RobotMap.shooterMotorOne.setIdleMode(IdleMode.kCoast);
-        
-        RobotMap.shooterMotorTwo.enableVoltageCompensation(11.3);
+        RobotMap.shooterMotorOne.setInverted(true);
         RobotMap.shooterMotorTwo.setIdleMode(IdleMode.kCoast);
-
-        RobotMap.shooterMotorOne.setInverted(true); 
         RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
-        System.out.println(RobotMap.shooterMotorTwo.setIdleMode(IdleMode.kCoast));
+
 
     	for(TalonSRX talon:RobotMap.driveMotors) {
     		talon.configContinuousCurrentLimit(RobotStats.driveMotorContinuousCurrentHighGear);
