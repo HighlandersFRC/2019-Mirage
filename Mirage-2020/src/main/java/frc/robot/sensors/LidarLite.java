@@ -28,12 +28,10 @@ private Counter counter;
         double cmDist;
         double ftDist;
         if (counter.get() < 1) {
-          SmartDashboard.putNumber("lidarDist", -1);
           return -1;
         }
         cmDist = (counter.getPeriod() * 1000000.0 / 10.0) + distOffset;
         ftDist = cmDist*0.0328084;
-        SmartDashboard.putNumber("lidarDist", ftDist);
         return ftDist;
     }
 }
