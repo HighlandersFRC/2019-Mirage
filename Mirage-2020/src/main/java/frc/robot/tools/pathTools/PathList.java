@@ -23,7 +23,7 @@ public class PathList {
   // be decreasing y units on the coordinate plane, while in the other you would be increasing y units
   public PathList() {
     try{
-      traj1 = TrajectoryUtil.fromPathweaverJson(Paths.get("asdf"));
+      traj1 = TrajectoryUtil.fromPathweaverJson(Paths.get("/home/lvuser/deploy/fieldPath1.wpilib.json"));
       path1 = new PathSetup(traj1, false);
     }
     catch(Exception e){

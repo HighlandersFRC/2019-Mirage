@@ -19,7 +19,7 @@ import frc.robot.tools.math.Point;
 import frc.robot.tools.math.Vector;
 import jaci.pathfinder.Pathfinder;
 
-public class PurePursuitController extends CommandBase {
+public class PurePursuitController extends edu.wpi.first.wpilibj.command.Command {
 	private PathSetup chosenPath;
 	private Odometry odometry;
 	private int closestSegment;
@@ -70,7 +70,6 @@ public class PurePursuitController extends CommandBase {
 		//if robotAbsoluteDirection is false, assuming a theta of 0, the robot moving forwards (on gravistar away from battery side) will lead to x increasing,
 		//this way the robot can run any path either forward or reversed, as long as robotAbsoluteDirection remains constant.
 		odometryDirection = robotAbsoluteDirection;
-		addRequirements(RobotMap.drive);
  	}
 
 
@@ -79,14 +78,13 @@ public class PurePursuitController extends CommandBase {
   	public void initialize() {
 		shouldEnd = false;
 		odometry = new Odometry(odometryDirection);
-		RobotMap.drive.setOdometryReversed(odometryDirection);
-
 		odometry.zero();
 		odometry.start();
 		if(useOutsideOdometry){
 			odometry.setX(RobotMap.drive.getDriveTrainX());
 			odometry.setY(RobotMap.drive.getDriveTrainY());
 			odometry.setTheta(RobotMap.drive.getDriveTrainHeading());
+			RobotMap.drive.setOdometryReversed(odometryDirection);
 		}
 		else{
 			odometry.setX(chosenPath.getMainPath().getStates().get(0).poseMeters.getTranslation().getX());
@@ -138,8 +136,8 @@ public class PurePursuitController extends CommandBase {
 		}
 
 		for(int i = startingNumber; i<chosenPath.getMainPath().getStates().size()-1;i++){        
-			deltaX = chosenPath.getMainPath().getStates().get(0).poseMeters.getTranslation().getX()-odometry.getX();
-			deltaY = chosenPath.getMainPath().getStates().get(0).poseMeters.getTranslation().getY()-odometry.getY();
+			deltaX = chosenPath.getMainPath().getStates().get(9).poseMeters.getTranslation().getX()-odometry.getX();
+			deltaY = chosenPath.getMainPath().getStates().get(i).poseMeters.getTranslation().getY()-odometry.getY();
 			distToPoint = Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2));
 			if(distToPoint<minDistanceToPoint){
 				minDistanceToPoint = distToPoint;
@@ -287,17 +285,12 @@ public class PurePursuitController extends CommandBase {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	public boolean isFinished() {
-		if(chosenPath.getMainPath().getStates().size()-closestSegment<=2){
-			return true;
-		} 
-		else{
-			return shouldEnd;
-		}   
+		return false;
 		
 	}
 	// Called once after isFinished returns true
 	@Override
-	public void end(boolean interrupted) {
+	public void end() {
 		pathNotifier.stop();
 		shouldRunAlgorithm = false;
 		odometry.endOdmetry();

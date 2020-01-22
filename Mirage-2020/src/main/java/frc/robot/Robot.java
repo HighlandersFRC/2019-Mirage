@@ -108,6 +108,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     commandSuites.startAutoCommands();
     robotConfig.setAutoConfig();
+    RobotMap.drive.startAutoOdometry(10, -8.046, 0, false);
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -136,6 +137,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("angle", RobotMap.navx.getAngle());
     SmartDashboard.putNumber("x", RobotMap.drive.getDriveTrainX());
     SmartDashboard.putNumber("y", RobotMap.drive.getDriveTrainY());
     Scheduler.getInstance().run();

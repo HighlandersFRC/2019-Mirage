@@ -50,7 +50,7 @@ public class DriveTrain extends SubsystemBase {
 
   	}
 	public void startAutoOdometry(double x, double y, double theta, boolean shouldReverse){
-		autoOdometry = new Odometry(shouldReverse);
+		autoOdometry = new Odometry(shouldReverse,  x,  y);
 		autoOdometry.start();
 	};
 	public double getDriveTrainX(){

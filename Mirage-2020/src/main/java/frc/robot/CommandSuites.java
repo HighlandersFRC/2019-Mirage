@@ -6,14 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
+import frc.robot.tools.controlLoops.PurePursuitController;
+
 /**
  * Add your docs here.
  */
 public class CommandSuites {
+    private PurePursuitController purePursuitController;
     
     public CommandSuites(){
     }
     public void startAutoCommands(){
+        purePursuitController  = new PurePursuitController(RobotMap.pathlist.path1, 1.0, 2.0, true, false);
+        purePursuitController.start();
 
     }
     public void endAutoCommands(){
