@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ButtonMap;
@@ -24,10 +25,10 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   private double shooterPower;
-  private double kf = 0.00015;
-  private double kp = 0.00000000;
-  private double ki = 0.000001;
-  private double kd = 0.002;
+  private double kf = 0.00017;
+  private double kp = 0.0009;
+  private double ki = 0;
+  private double kd = 0;
   private CANPIDController vpidController = new CANPIDController(RobotMap.shooterMotorOne);
 
   public Shooter() {
@@ -74,7 +75,8 @@ public class Shooter extends SubsystemBase {
         vpidController.setReference(shooterPower, ControlType.kVelocity);
       }
       else{
-        RobotMap.shooterMotorOne.set(0);
+        RobotMap.shooterMotorOne.set(0.0);
+
       }
     }
 
