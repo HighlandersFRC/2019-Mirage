@@ -194,9 +194,11 @@ public class PurePursuitController extends edu.wpi.first.wpilibj.command.Command
 		if(partialPointIndex>lastPointIndex){
 			lastPointIndex = partialPointIndex;
 		}
+		distToEndVector.setX(chosenPath.getMainPath().getStates().get(chosenPath.getMainPath().getStates().size()-1).poseMeters.getTranslation().getX()-odometry.getX());
+		distToEndVector.setY(chosenPath.getMainPath().getStates().get(chosenPath.getMainPath().getStates().size()-1).poseMeters.getTranslation().getY()-odometry.getY());
 		SmartDashboard.putNumber("distoend", distToEndVector.length());
 		SmartDashboard.putNumber("x", odometry.getX());
-		SmartDashboard.putNumber("closestSegment", closestSegment);
+		SmartDashboard.putNumber("closestSegment", chosenPath.getMainPath().getStates().size()-closestSegment);
 		SmartDashboard.putNumber("y",odometry.getY());
 		SmartDashboard.putNumber("theta", odometry.gettheta());
 		SmartDashboard.putNumber("LAX", lookAheadPoint.getXPos());
@@ -204,7 +206,7 @@ public class PurePursuitController extends edu.wpi.first.wpilibj.command.Command
 		startingNumberLA = (int)partialPointIndex;
 		lastLookAheadPoint = lookAheadPoint;
 		findRobotCurvature();
-		curveAdjustedVelocity = Math.min(Math.abs(k/desiredRobotCurvature),chosenPath.getMainPath().getStates().get(closestSegment).velocityMetersPerSecond);
+		curveAdjustedVelocity = Math.min(Math.abs(k/chosenPath.getMainPath().getStates().get(closestSegment).curvatureRadPerMeter),chosenPath.getMainPath().getStates().get(closestSegment).velocityMetersPerSecond);
 		setWheelVelocities(curveAdjustedVelocity, desiredRobotCurvature);
 		endThetaError = Pathfinder.boundHalfDegrees((Math.toDegrees(chosenPath.getMainPath().getStates().get((chosenPath.getMainPath().getStates().size()-1)).poseMeters.getRotation().getDegrees())-odometry.gettheta()));
   	} 
@@ -234,8 +236,7 @@ public class PurePursuitController extends edu.wpi.first.wpilibj.command.Command
 		double rightVelocity;
 		double v;
 		if(closestSegment <10){
-			v = 1.2;
-		}
+			v = 1.2;		}
 		else{
 			v = targetVelocity;
 		}
@@ -285,7 +286,8 @@ public class PurePursuitController extends edu.wpi.first.wpilibj.command.Command
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	public boolean isFinished() {
-		return false;
+
+		return distToEndVector.length()<0.20|| shouldEnd;
 		
 	}
 	// Called once after isFinished returns true

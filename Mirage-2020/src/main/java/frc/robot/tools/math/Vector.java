@@ -17,7 +17,7 @@ public class Vector {
 	  return xVec*v1.getxVec() + yVec*v1.getyVec();
    }
    public double length() {
-	  return Math.sqrt ( xVec*xVec + yVec*yVec );
+	  return Math.sqrt ( Math.pow(xVec, 2) + Math.pow(yVec, 2));
    }
    public double getxVec(){
 	  return xVec;
