@@ -72,12 +72,14 @@ public class Robot extends TimedRobot {
     try{
       visionCamera.updateVision();
       SmartDashboard.putString("camstring", visionCamera.getString());
+      SmartDashboard.putNumber("LIDARLiteDist", RobotMap.lidarLite.getDistance());
+
     }
     catch(Exception e){
 
     }
     
-    RobotMap.shooter.periodic();
+    //RobotMap.shooter.periodic();
     RobotMap.drive.periodic();
   }
   /**
@@ -137,6 +139,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    if(ButtonMap.getShooterAxis()>0.3){
+      RobotMap.shooterMotorOne.set(ButtonMap.getShooterAxis()*-0.8);
+
+    }
+    else if(ButtonMap.getShooterAxis1()>0.3){
+      RobotMap.shooterMotorOne.set(ButtonMap.getShooterAxis1()*0.8);
+
+    }
+    else{
+      RobotMap.shooterMotorOne.set(0);
+    }
+    RobotMap.shooterMotorTwo.set(0);
+
     SmartDashboard.putNumber("angle", RobotMap.navx.getAngle());
     SmartDashboard.putNumber("x", RobotMap.drive.getDriveTrainX());
     SmartDashboard.putNumber("y", RobotMap.drive.getDriveTrainY());
