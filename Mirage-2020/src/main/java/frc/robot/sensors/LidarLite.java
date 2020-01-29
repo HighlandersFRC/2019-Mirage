@@ -30,6 +30,7 @@ private Counter counter;
         if (counter.get() < 1) {
           return -1;
         }
+        
         cmDist = (counter.getPeriod() * 1000000.0 / 10.0) + distOffset;
         ftDist = cmDist*0.0328084;
         return ftDist;

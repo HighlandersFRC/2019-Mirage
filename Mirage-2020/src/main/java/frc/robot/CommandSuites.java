@@ -18,8 +18,6 @@ public class CommandSuites {
     public CommandSuites(){
     }
     public void startAutoCommands(){
-        purePursuitController  = new PurePursuitController(RobotMap.pathlist.path1, 1.7, 5.0, true, false);
-        purePursuitController.start();
 
     }
     public void endAutoCommands(){

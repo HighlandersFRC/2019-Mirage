@@ -56,9 +56,7 @@ public class RobotConfig {
 
         RobotMap.shooterMotorOne.setIdleMode(IdleMode.kCoast);
         RobotMap.shooterMotorOne.setInverted(true);
-        RobotMap.shooterMotorTwo.setIdleMode(IdleMode.kCoast);
-        RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorOne, true);
-
+        RobotMap.shooterMotorTwo.follow(RobotMap.shooterMotorTwo);
     	for(TalonSRX talon:RobotMap.driveMotors) {
     		talon.configContinuousCurrentLimit(RobotStats.driveMotorContinuousCurrentHighGear);
     		talon.configPeakCurrentLimit(RobotStats.driveMotorPeakCurrentHighGear);

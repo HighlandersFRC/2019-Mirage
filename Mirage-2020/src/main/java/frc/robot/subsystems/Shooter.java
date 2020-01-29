@@ -26,9 +26,9 @@ public class Shooter extends SubsystemBase {
    */
   private double shooterPower;
   private double kf = 0.00017;
-  private double kp = 0.0009;
+  private double kp = 0.0007;
   private double ki = 0;
-  private double kd = 0;
+  private double kd = 0.7;
   private CANPIDController vpidController = new CANPIDController(RobotMap.shooterMotorOne);
 
   public Shooter() {

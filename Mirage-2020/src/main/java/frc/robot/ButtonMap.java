@@ -26,6 +26,9 @@ public class ButtonMap {
     public static double getShooterAxis(){
         return oi.driverController.getRawAxis(3);
     }
+    public static double getShooterAxis1(){
+        return oi.driverController.getRawAxis(2);
+    }
     public static boolean adjustTargetTrackingLeft(){
         return oi.driverController.getXButtonPressed();
     }

@@ -26,7 +26,7 @@ import frc.robot.tools.pathTools.Odometry;
 
 public class DriveTrain extends SubsystemBase {
 
-	private double deadZone = 0.0102;
+	private double deadZone = 0.102;
 	private double turn =0;
 	private double throttel = 0;
 	private double ratio;
