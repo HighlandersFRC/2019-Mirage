@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
     RobotMap.shooter.initShooterPID();
     RobotMap.drive.initAlignmentPID();
     RobotMap.visionRelay1.set(Value.kReverse);
+    SmartDashboard.putNumber("led input", 0);
     try {
       camera1 = new SerialPort(115200, Port.kUSB);
       visionCamera = new VisionCamera(camera1);
@@ -73,6 +74,9 @@ public class Robot extends TimedRobot {
       SmartDashboard.putNumber("lidarDistft", RobotMap.lidarLite.getDistance());
       visionCamera.updateVision();
       SmartDashboard.putString("camstring", visionCamera.getString());
+      double value = SmartDashboard.getNumber("led input", 0);
+      RobotMap.ledPort.set(value);
+      System.err.println("set to" + (value));
     }
     catch(Exception e){
 

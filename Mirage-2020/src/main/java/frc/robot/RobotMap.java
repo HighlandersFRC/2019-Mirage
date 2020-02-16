@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.sensors.DriveEncoder;
@@ -42,7 +43,8 @@ public class RobotMap {
 
   public static Navx mainNavx = new Navx(navx);
     
-	public static Relay visionRelay1 = new Relay(0);
+  public static Relay visionRelay1 = new Relay(0);
+  public static Spark ledPort = new Spark(0);
 
   public static Counter lidarCounter = new Counter(0);
   public static LidarLite lidarLite = new LidarLite(lidarCounter);
