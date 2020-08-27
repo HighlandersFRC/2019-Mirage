@@ -142,5 +142,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    System.out.println("Hello");
   }
 }
