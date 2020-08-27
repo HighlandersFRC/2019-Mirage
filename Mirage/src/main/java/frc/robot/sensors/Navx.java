@@ -3,7 +3,6 @@ package frc.robot.sensors;
 import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.RobotMap;
-import jaci.pathfinder.Pathfinder;
 
 
 public class Navx {
@@ -39,9 +38,7 @@ public class Navx {
 	public double currentYaw(){
 		return ((imu.getYaw())-originalYaw);
 	}
-	public double currentReverseYaw(){
-		return Pathfinder.boundHalfDegrees((imu.getYaw())-originalYaw+180) ;
-	}
+	
 	public boolean isMoving() {
 		return imu.isMoving();
 	}
@@ -67,10 +64,10 @@ public class Navx {
 		return imu.isMagneticDisturbance();
 	}
 	public void softResetAngle(){
-		originalAngle = RobotMap.navx.getAngle();
+		originalAngle = RobotMap.imu.getAngle();
 
 	}
 	public void softResetYaw(){
-		originalYaw = RobotMap.navx.getYaw();
+		originalYaw = RobotMap.imu.getYaw();
 	}
 }
