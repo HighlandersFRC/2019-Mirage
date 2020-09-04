@@ -25,15 +25,18 @@ public class MotionMagicForward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotMap.leftMaster.setSelectedSensorPosition(0); 
+    RobotMap.rightMaster.setSelectedSensorPosition(0);
     RobotMap.leftMaster.selectProfileSlot(0,0);
     RobotMap.rightMaster.selectProfileSlot(0,0);
+    RobotMap.leftMaster.set(ControlMode.MotionMagic, RobotStats.inchesToTicks(12));
+    RobotMap.rightMaster.set(ControlMode.MotionMagic, RobotStats.inchesToTicks(12));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotMap.leftMaster.set(ControlMode.MotionMagic, RobotStats.inchesToTicks(24));
-    RobotMap.rightMaster.set(ControlMode.PercentOutput, RobotStats.inchesToTicks(24));
+    
   }
 
   // Called once the command ends or is interrupted.

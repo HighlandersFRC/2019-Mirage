@@ -19,6 +19,8 @@ public class RobotConfig {
         RobotMap.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         RobotMap.leftMaster.setSelectedSensorPosition(0);
         RobotMap.rightMaster.setSelectedSensorPosition(0);
+        RobotMap.rightMaster.setSensorPhase(true);
+        RobotMap.leftMaster.setSensorPhase(true);
         
     }
 }

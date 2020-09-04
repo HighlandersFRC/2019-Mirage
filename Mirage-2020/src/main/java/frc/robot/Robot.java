@@ -93,12 +93,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    MotionMagicForward motionmagicforward = new MotionMagicForward();
+    motionmagicforward.schedule();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+    
     }
+
   }
 
   /**
@@ -106,6 +110,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    
   }
 
   @Override
@@ -131,10 +136,7 @@ public class Robot extends TimedRobot {
   SmartDashboard.putNumber("EncoderLeft", RobotMap.leftMaster.getSelectedSensorPosition());
     SmartDashboard.putNumber("Right Motor", RobotMap.rightMaster.getMotorOutputPercent());
     SmartDashboard.putNumber("Left Motor", RobotMap.leftMaster.getMotorOutputPercent());
-    if(OI.driverController.getBumper(Hand.kRight)){
-      MotionMagicForward motionmagicforward = new MotionMagicForward();
-      motionmagicforward.schedule();
-    }
+    
 
     if(OI.driverController.getYButton()){
       DriveTrain.setSpeed(3);

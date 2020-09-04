@@ -30,19 +30,19 @@ public class DriveTrain extends SubsystemBase {
   }
   public static void initVPID(){
     RobotMap.leftMaster.selectProfileSlot(0, 0);
-    RobotMap.leftMaster.config_kF(0, 0.163);
+    RobotMap.leftMaster.config_kF(0, 0.32);
     RobotMap.leftMaster.config_kP(0,0);
     RobotMap.leftMaster.config_kI(0,0); 
     RobotMap.leftMaster.config_kD(0,0);
     RobotMap.rightMaster.selectProfileSlot(0,0); 
-    RobotMap.rightMaster.config_kF(0, 0.163);
+    RobotMap.rightMaster.config_kF(0, 0.32);
     RobotMap.rightMaster.config_kP(0,0);
     RobotMap.rightMaster.config_kI(0,0);
     RobotMap.rightMaster.config_kD(0,0);
-    RobotMap.rightMaster.configMotionCruiseVelocity(800);
-    RobotMap.leftMaster.configMotionCruiseVelocity(800);
-    RobotMap.rightMaster.configMotionAcceleration(1600);                        
-    RobotMap.leftMaster.configMotionAcceleration(1600);
+    RobotMap.rightMaster.configMotionCruiseVelocity(900);
+    RobotMap.leftMaster.configMotionCruiseVelocity(900);
+    RobotMap.rightMaster.configMotionAcceleration(1800);                        
+    RobotMap.leftMaster.configMotionAcceleration(1800);
 
   }
   public static void setSpeed(double targetVelocityFeet){
