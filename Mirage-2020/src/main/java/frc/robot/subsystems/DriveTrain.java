@@ -14,6 +14,13 @@ public class DriveTrain extends SubsystemBase {
 
    public static OI oi = new OI();
 
+   private static double motionMagicF = 0.32;
+   private static double motionMagicP = 0.1;
+   private static double motionMagicI = 0;
+   private static double motionMagicD = 0;
+   private static int motionMagicVelocity = 900;
+   private static int motionMagicAcceleration = 1800;
+
   public DriveTrain() {
       
 
@@ -28,21 +35,22 @@ public class DriveTrain extends SubsystemBase {
 
       tankDrive();
   }
+
   public static void initVPID(){
     RobotMap.leftMaster.selectProfileSlot(0, 0);
-    RobotMap.leftMaster.config_kF(0, 0.32);
-    RobotMap.leftMaster.config_kP(0,0);
-    RobotMap.leftMaster.config_kI(0,0); 
-    RobotMap.leftMaster.config_kD(0,0);
+    RobotMap.leftMaster.config_kF(0, motionMagicF);
+    RobotMap.leftMaster.config_kP(0,motionMagicP);
+    RobotMap.leftMaster.config_kI(0,motionMagicI); 
+    RobotMap.leftMaster.config_kD(0,motionMagicD);
     RobotMap.rightMaster.selectProfileSlot(0,0); 
-    RobotMap.rightMaster.config_kF(0, 0.32);
-    RobotMap.rightMaster.config_kP(0,0);
-    RobotMap.rightMaster.config_kI(0,0);
-    RobotMap.rightMaster.config_kD(0,0);
-    RobotMap.rightMaster.configMotionCruiseVelocity(900);
-    RobotMap.leftMaster.configMotionCruiseVelocity(900);
-    RobotMap.rightMaster.configMotionAcceleration(1800);                        
-    RobotMap.leftMaster.configMotionAcceleration(1800);
+    RobotMap.rightMaster.config_kF(0, motionMagicF);
+    RobotMap.rightMaster.config_kP(0,motionMagicP);
+    RobotMap.rightMaster.config_kI(0,motionMagicI);
+    RobotMap.rightMaster.config_kD(0,motionMagicD);
+    RobotMap.rightMaster.configMotionCruiseVelocity(motionMagicVelocity);
+    RobotMap.leftMaster.configMotionCruiseVelocity(motionMagicVelocity);
+    RobotMap.rightMaster.configMotionAcceleration(motionMagicAcceleration);                        
+    RobotMap.leftMaster.configMotionAcceleration(motionMagicAcceleration);
 
   }
   public static void setSpeed(double targetVelocityFeet){
